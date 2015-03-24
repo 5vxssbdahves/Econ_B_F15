@@ -9,6 +9,7 @@ log using PS5, replace text
 use pwt
 describe
 
+list country if grade=="D"
 drop if grade=="D"
 generate ly60=log(y60)
 generate strucK=log(sk)-log(n+0.075)
@@ -16,6 +17,7 @@ generate strucH=log(sh)-log(n+0.075)
 summarize
 
 list country if strucH==.
+
 drop if strucH==.
 summarize 
 
@@ -33,13 +35,13 @@ generate SSR_r=e(rss)
 *QUESTION 1.D: TEST IF STRUCTURAL CHARACTERISTICS CAN BE JOINTLY OMITTED 
 *i) MANUALLY
 generate Ftest=((SSR_r-SSR_ur)/2)/(SSR_ur/(77-3-1))
-su Ftest
+di Ftest
 
 *CRITICAL VALUE FOR F-TEST
 display invFtail(2,77-3-1,0.05)
 
 *ii) USING STATA's TEST COMMAND
-regress gy ly60 strucK strucH
+quietly regress gy ly60 strucK strucH
 test strucK=strucH=0
 
 *QUESTION 2: OLS ESTIMATION IN MATA 
@@ -70,6 +72,7 @@ ttest=beta_hat:/se_ols
 // PRINT RESULTS //
 (beta_hat, se_ols, ttest)
 end
+
 
 log close
 
