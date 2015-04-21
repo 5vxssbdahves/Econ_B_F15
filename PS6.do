@@ -53,7 +53,7 @@ gen SSR_p=e(rss)
 gen chow=(SSR_p-(SSR_1+SSR_2+SSR_3+SSR_4))/(SSR_1+SSR_2+SSR_3+SSR_4)*((988-4*4)/(3*4))
 
 *CRITICAL VALUE
-gen c=invFtail(12,988-8*8,0.05)
+gen c=invFtail(12,988-4*4,0.05)
 su chow c
 drop SSR* chow c
 
